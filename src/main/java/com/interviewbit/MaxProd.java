@@ -1,17 +1,55 @@
 package com.interviewbit;
 
+import java.math.BigInteger;
 import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.List;
 
 public class MaxProd {
 	public static void main(String[] args) {
+//		21474836472147483647
+//		9223372036854775807
+//		String arr[] = new String[] {"3", "30", "34", "5", "9", "300"};
+//		Arrays.sort(arr, new CustomComparator().reversed());
+		System.out.println(Integer.MAX_VALUE);
 		System.out.println(Long.MAX_VALUE);
-		int x = (int) ((100000*100000L)%1000000007);
-		System.out.println(x);
+		Integer intArr[] = new Integer[] {3, 30, 34, 5, 9, 300};
+		Arrays.sort(intArr, new CustomIntComparator().reversed());
+		System.out.println(Arrays.toString(intArr));
 		MaxProd solver = new MaxProd();
 		System.out.println(solver.maxSpecialProduct(Arrays.asList(5, 9, 6, 8, 6, 4, 6, 9, 5, 4, 9)));
+	}
+	
+	static class CustomStringComparator implements Comparator<String>{
+
+		@Override
+		public int compare(String s1, String s2) {
+			int int1 = Integer.parseInt(s1+s2);
+			int int2 = Integer.parseInt(s2+s1);
+			if(int1>=int2) {
+				return 1;
+			}
+			return -1;
+		}
+		
+	}
+	static class CustomIntComparator implements Comparator<Integer>{
+
+		@Override
+		public int compare(Integer i1, Integer i2) {
+			String s1 = ""+i1;
+			String s2 = ""+i2;
+			BigInteger int1 = new BigInteger(s1+s2);
+			BigInteger int2 = new BigInteger(s2+s1);
+			return int1.compareTo(int2);
+//			if(int1>=int2) {
+//				return 1;
+//			}
+//			return -1;
+		}
+		
 	}
     public int maxSpecialProduct(List<Integer> A) {
         if(A == null || A.size() <= 2) return 0;
