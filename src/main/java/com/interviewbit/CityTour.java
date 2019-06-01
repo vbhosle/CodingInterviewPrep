@@ -3,6 +3,10 @@ package com.interviewbit;
 import java.util.Collections;
 import java.util.List;
 
+/*
+ * Art of Problem Solving: Patterns in Pascal's Triangle
+ * https://www.mathsisfun.com/pascals-triangle.html
+ */
 public class CityTour {
 	long comb[][] = new long[11][11];
 	long exp[] = new long[11];
