@@ -1,4 +1,4 @@
-package com.interviewbit;
+package com.interviewbit.backtracking;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.interviewbit.backtracking.LetterPhone;
 
 public class LetterPhoneTest {
 
