@@ -6,52 +6,52 @@ public class NumbersOfLengthNAndValueLessThanK {
 	public int solve(ArrayList<Integer> digits, int length, int limit) {
 		if(String.valueOf(limit).length() < length) return 0;
 		int counter = 0;
-		ArrayList<Integer> selectedDigits = new ArrayList<>();
+		RunningSum runningSum = new RunningSum(length);
 		for (Integer digit : digits) {
-			selectedDigits.add(digit);
-			counter = helper(digits, length, limit, counter, selectedDigits);
-			selectedDigits.remove(selectedDigits.size() - 1);
+			runningSum.add(digit);
+			counter = helper(digits, length, limit, counter, runningSum);
+			runningSum.removeLast();
 		}
 
 		return counter;
 	}
 
 	public int helper(ArrayList<Integer> digits, int length, int limit, int counter,
-			ArrayList<Integer> selectedDigits) {
-		if (!isWithinLimit(selectedDigits, length, limit)) {
-			//System.out.println("Limit crossed: " + selectedDigits);
+			RunningSum runningSum) {
+		if (!(runningSum.sum < limit)) {
+			//System.out.println("Limit crossed: " + runningSum.sum);
 			return counter;
 		}
-		if (selectedDigits.size() == length) {
-			if (isWithinLimit(selectedDigits, length, limit)) {
-				//System.out.println("Number found : " + selectedDigits);
+		if (runningSum.index == (length - 1)) {
+			if (runningSum.sum < limit) {
+				//System.out.println("Number found : " + runningSum.sum);
 				return counter + 1;
 			} else
 				return counter;
 		}
 
-		if(length > 1 && selectedDigits.get(0) == 0) {
+		if(length > 1 && runningSum.unitValues[0] == 0) {
 			return counter;
 		}
 		
 		for (Integer digit : digits) {
-			selectedDigits.add(digit);
-			counter = helper(digits, length, limit, counter, selectedDigits);
-			selectedDigits.remove(selectedDigits.size() - 1);
+			runningSum.add(digit);
+			counter = helper(digits, length, limit, counter, runningSum);
+			runningSum.removeLast();
 		}
 
 		return counter;
 	}
 
-	private boolean isWithinLimit(ArrayList<Integer> selectedDigits, int length, int limit) {
-		int unitMultiplier = (int) Math.pow(10, length - 1);
-		int sum = 0;
-		for (Integer digit : selectedDigits) {
-			sum += digit * unitMultiplier;
-			unitMultiplier /= 10;
-		}
-		return sum < limit;
-	}
+//	private boolean isWithinLimit(ArrayList<Integer> selectedDigits, int length, int limit) {
+//		int unitMultiplier = (int) Math.pow(10, length - 1);
+//		int sum = 0;
+//		for (Integer digit : selectedDigits) {
+//			sum += digit * unitMultiplier;
+//			unitMultiplier /= 10;
+//		}
+//		return sum < limit;
+//	}
 	
 	static class RunningSum{
 		int[] unitValues;
@@ -64,15 +64,26 @@ public class NumbersOfLengthNAndValueLessThanK {
 		}
 		
 		void add(int n) {
-			unitMultiplier /= 10;
 			unitValues[++index] = n*unitMultiplier;
 			sum+= unitValues[index];
+			unitMultiplier /= 10;
 		}
 		
 		void removeLast() {
 			sum -= unitValues[index--];
-			unitMultiplier *= 10; 
+			unitMultiplier = unitMultiplier == 0? 1:  (unitMultiplier* 10); 
 		}
+	}
+	
+	public static void main(String[] args) {
+		RunningSum runningSum = new RunningSum(3);
+		runningSum.add(2);
+		runningSum.add(3);
+		runningSum.add(4);
+		runningSum.removeLast();
+		runningSum.removeLast();
+		runningSum.removeLast();
+		runningSum.add(3);
 	}
 
 }

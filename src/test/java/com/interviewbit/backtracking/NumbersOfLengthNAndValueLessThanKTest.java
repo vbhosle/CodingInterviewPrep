@@ -59,7 +59,7 @@ public class NumbersOfLengthNAndValueLessThanKTest {
 		assertThat(actual, equalTo(expected));
 	}
 	
-	@Test(timeout=70)
+	@Test(timeout=100)
 	public void test06() {
 		ArrayList<Integer> digits = new ArrayList<>(Arrays.asList(2, 3, 5, 6, 7, 9 ));
 		int length = 5;
@@ -80,7 +80,7 @@ public class NumbersOfLengthNAndValueLessThanKTest {
 	}
 	
 
-	@Test(timeout=70)
+	@Test(timeout=1000)
 	public void performance() {
 		ArrayList<Integer> digits = new ArrayList<>(Arrays.asList( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ));
 		int length = 5;
