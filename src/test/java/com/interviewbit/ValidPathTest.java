@@ -34,5 +34,12 @@ public class ValidPathTest {
 		String result = solver.solve(5, 5, 2, 0, Arrays.asList(3,3), Arrays.asList(1,3));
 		assertThat(result, equalTo("YES"));
 	}
+	
+
+	@Test
+	public void test04() {
+		String result = solver.solve(41, 67, 1, 35, Arrays.asList(20), Arrays.asList(35));
+		assertThat(result, equalTo("NO"));
+	}
 
 }
