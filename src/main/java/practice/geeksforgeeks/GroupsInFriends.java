@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
+// https://www.geeksforgeeks.org/number-groups-formed-graph-friends/
 public class GroupsInFriends {
 
 	public static List<Integer> getNumberOfGroups(List<Friend> friends) {
