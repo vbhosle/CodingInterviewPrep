@@ -8,8 +8,10 @@ import java.util.List;
 public class ArrangementOfStudentChairs {
 
 	public static void main(String[] args) {
-		List<String> students = new ArrayList<>(Arrays.asList("s1", "s2", "s3", "s4", "s5"));
-		List<String> chairs = new ArrayList<>(Arrays.asList("c1", "c2", "c3", "c4", "c5", "c6"));
+//		List<String> students = new ArrayList<>(Arrays.asList("s1", "s2", "s3", "s4", "s5"));
+//		List<String> chairs = new ArrayList<>(Arrays.asList("c1", "c2", "c3", "c4", "c5", "c6"));
+		List<String> students = new ArrayList<>(Arrays.asList("s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"));
+		List<String> chairs = new ArrayList<>(Arrays.asList("c1", "c2", "c3", "c4", "c5", "c6","c7", "c8", "c9", "c10"));
 		ArrangementOfStudentChairs solver = new ArrangementOfStudentChairs();
 		long start = System.nanoTime();
 		List<List<String>> combinations = solver.combination(chairs, students);
