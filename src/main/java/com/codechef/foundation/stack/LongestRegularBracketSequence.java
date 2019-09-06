@@ -2,7 +2,7 @@ package com.codechef.foundation.stack;
 
 import java.util.Deque;
 import java.util.LinkedList;
-
+//https://codeforces.com/contest/5/problem/C
 public class LongestRegularBracketSequence {
 
 	public static void main(String[] args) {
@@ -12,8 +12,8 @@ public class LongestRegularBracketSequence {
 
 	public static String longestSequence(final String expression) {
 		Deque<Integer> stack = new LinkedList<Integer>();
-		int[] d = new int[expression.length()];
-		int[] c = new int[expression.length()];
+		int[] d = new int[expression.length()]; //index of corresponding opening brace
+		int[] c = new int[expression.length()]; //index of farthest opening brace for whole valid expression
 
 		for (int i = 0; i < expression.length(); i++) {
 			d[i] = Integer.MAX_VALUE;
