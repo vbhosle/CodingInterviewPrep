@@ -15,6 +15,13 @@ public class Trisq {
 		return touchPointsOnHypotenuse + maxSquaresTriangle(base - 2, squareLen);
 	}
 	
+	public int maxSquaresTriangle01(int base, int squareLen) {
+		int touchPointsOnHypotenuse = base / squareLen - 1;
+		if (touchPointsOnHypotenuse <= 0)
+			return 0;
+		return touchPointsOnHypotenuse * (touchPointsOnHypotenuse + 1) /2;
+	}
+	
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		Trisq solver = new Trisq();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
