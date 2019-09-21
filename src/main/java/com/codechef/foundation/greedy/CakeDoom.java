@@ -1,5 +1,8 @@
 package com.codechef.foundation.greedy;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 // Wrong Answer :x
 public class CakeDoom {
 
