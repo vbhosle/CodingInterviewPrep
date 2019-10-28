@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 public class CNote {
 
 	public static void main(String[] args) {
+		
 		FastReader reader = new FastReader();
 		int testCases = reader.nextInt();
 		int poetryLength, currentNotebookPages, money, notebooks;
@@ -84,6 +85,14 @@ public class CNote {
 			}
 			
 			return str;
+		}
+		
+		int[] nextIntArray(int len) {
+			int[] arr = new int[len];
+			for(int i =0; i < len; i++) {
+				arr[i] = nextInt();
+			}
+			return arr;
 		}
 	}
 }
