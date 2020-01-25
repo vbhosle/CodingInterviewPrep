@@ -1,29 +1,32 @@
 package com.udemy.andrei.math;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SieveOfEratosthenesPrimeNumbers {
 
-	public int countPrimes(int n) {
-		boolean primes[] = new boolean[n];
-		Arrays.fill(primes, true);
+	public static List<Integer> primeNumbersTill(int limit) {
+		List<Integer> primes = new ArrayList<>();
 
-		int limit = (int) Math.sqrt(n);
-		for (int i = 2; i <= limit; i++) {
-			if (primes[i]) {
-				for (int j = i * 2; j < n; j += i) {
-					primes[j] = false;
+		boolean[] isPrime = new boolean[limit + 1];
+		Arrays.fill(isPrime, true);
+		isPrime[0] = false;
+		isPrime[1] = false;
+		
+		int sqrtLimit = (int) Math.sqrt(limit);
+		for (int i = 2; i <= sqrtLimit; i++) {
+			if (isPrime[i]) {
+				for (int j = i * 2; j <= limit; j+=i) {
+					isPrime[j] = false;
 				}
 			}
 		}
-
-		int count = 0;
-
-		for (int i = 2; i < n; i++) {
-			if (primes[i])
-				count++;
+		
+		for(int i = 2; i <= limit; i++) {
+			if(isPrime[i]) primes.add(i);
 		}
-
-		return count;
+		
+		return primes;
 	}
 }
