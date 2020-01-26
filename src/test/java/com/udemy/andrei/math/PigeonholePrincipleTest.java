@@ -30,7 +30,11 @@ public class PigeonholePrincipleTest {
 					new Object[][] {
 							{2},
 							{5},
-							{25}
+							{25},
+//							{Integer.MAX_VALUE/2000},
+							{Integer.MAX_VALUE/1000},
+							{Integer.MAX_VALUE/10},
+							{Integer.MAX_VALUE},
 					}
 				);
 	}

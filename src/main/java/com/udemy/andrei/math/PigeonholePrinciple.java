@@ -38,7 +38,7 @@ public class PigeonholePrinciple {
 				return sb.toString();
 			}
 			
-			remainderToOneCountMap.put(currentRem % n, i);
+			remainderToOneCountMap.put(currentRem, i);
 		}
 	
 		return sb.toString();
