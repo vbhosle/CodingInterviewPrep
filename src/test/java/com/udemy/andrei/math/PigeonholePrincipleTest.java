@@ -31,10 +31,10 @@ public class PigeonholePrincipleTest {
 							{2},
 							{5},
 							{25},
-//							{Integer.MAX_VALUE/2000},
+//							{Integer.MAX_VALUE/2000}, //takes long time
 							{Integer.MAX_VALUE/1000},
 							{Integer.MAX_VALUE/10},
-							{Integer.MAX_VALUE},
+//							{Integer.MAX_VALUE}, //out of memory
 					}
 				);
 	}

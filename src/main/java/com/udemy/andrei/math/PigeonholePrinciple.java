@@ -11,8 +11,8 @@ public class PigeonholePrinciple {
 	
 	public static String findMultipleWithOnlyZeroAndOneDigits(int n) {
 		StringBuilder sb = new StringBuilder();
-		int currentRem = 0;
-		Map<Integer, Integer> remainderToOneCountMap = new HashMap<>();
+		long currentRem = 0;
+		Map<Long, Integer> remainderToOneCountMap = new HashMap<>();
 		
 		for(int i = 1; i <= n; i++) {
 			currentRem = (currentRem*10 + 1) % n;
