@@ -9,6 +9,7 @@ import java.util.List;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class SieveOfEratosthenesPrimeNumbersTest {
@@ -72,6 +73,8 @@ public class SieveOfEratosthenesPrimeNumbersTest {
 	}
 	
 
+	//Takes long time
+	@Ignore
 	@Test
 	public void primesTill_899999963() {
 		List<Integer> primes = SieveOfEratosthenesPrimeNumbers.primeNumbersTill(89999999);
