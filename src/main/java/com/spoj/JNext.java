@@ -33,7 +33,6 @@ public class JNext {
 	}
 	
 	public long nextNumber(int[] digits){
-	    System.out.println(Arrays.toString(digits));
 		if(digits == null || digits.length <= 1) return -1L;
 		
        // find index where adjacent numbers are in ascending order
