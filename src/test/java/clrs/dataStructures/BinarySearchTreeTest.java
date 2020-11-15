@@ -248,4 +248,29 @@ public class BinarySearchTreeTest {
 			assertThat("New tree has size zero", tree.size(), equalTo(0));
 		}
 	}
+	
+	@Test
+	public void deleteReplaceWithPredecessor() {
+				
+		for (int i = 1; i <= 5; i++) {
+			List<Integer> keys = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+			List<Integer> sortedKeys = new ArrayList<>(keys);
+			Collections.sort(sortedKeys);
+			
+			Collections.shuffle(keys);
+			givenATree();
+			initializedWith(keys);
+			
+			ListIterator<Integer> iterator = sortedKeys.listIterator();
+			
+			while(iterator.hasNext()) {
+				tree.deleteReplaceWithPredecessor(iterator.next());
+				iterator.remove();
+				traversingReturns(BinarySearchTree::inorder, sortedKeys);
+			}
+			
+			assertTrue("New tree is empty", tree.isEmpty());
+			assertThat("New tree has size zero", tree.size(), equalTo(0));
+		}
+	}
 }

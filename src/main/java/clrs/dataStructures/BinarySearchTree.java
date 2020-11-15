@@ -258,6 +258,32 @@ public class BinarySearchTree {
 			replacement.left.parent = replacement;
 		}
 	}
+	
+	public void deleteReplaceWithPredecessor(int key) {
+		Node nodeToDelete = searchNode(key);
+		
+		if(nodeToDelete == null)
+			return;
+		
+		if(nodeToDelete.left == null) {
+			transplant(nodeToDelete, nodeToDelete.right);
+		}
+		else if(nodeToDelete.right == null) {
+			transplant(nodeToDelete, nodeToDelete.left);
+		}
+		else {
+			Node replacement = max(nodeToDelete);
+			if(replacement.parent != nodeToDelete) {
+				transplant(replacement, replacement.right);
+				replacement.right = nodeToDelete.right;
+				replacement.right.parent = replacement;
+			}
+			
+			transplant(nodeToDelete, replacement);
+			replacement.left = nodeToDelete.left;
+			replacement.left.parent = replacement;
+		}
+	}
 
 	private void transplant(Node u, Node v) {
 		if(u.parent == null) {
