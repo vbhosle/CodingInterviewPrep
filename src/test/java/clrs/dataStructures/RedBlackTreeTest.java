@@ -3,7 +3,9 @@ package clrs.dataStructures;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,6 +99,62 @@ public class RedBlackTreeTest {
 	}
 
 	@Test
+	public void orderStatisticKeyRank() {
+		final int CYCLES = 5;
+		List<Integer> keys = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+		
+		for(int cycle = 1; cycle <= CYCLES; cycle++) {
+			Collections.shuffle(keys);
+			testOrderStatisticKeyRank(keys);
+		}
+	}
+
+	public void testOrderStatisticKeyRank(List<Integer> keys) {
+		givenATree();
+		initializedWith(keys);
+
+		checkRedBlack(tree);
+		
+		assertThat("tree size is same as keys", tree.size(), equalTo(keys.size()));
+
+		Collections.sort(keys);
+		
+		for(int i = 0; i < keys.size(); i++) {
+			assertThat(tree.os_key_rank(keys.get(i)), equalTo(i+1));
+		}
+		
+	}
+	
+	@Test
+	public void orderStatisticOnKeysInsertedInRandomOrder() {
+		final int CYCLES = 5;
+		List<Integer> keys = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+		
+		for(int cycle = 1; cycle <= CYCLES; cycle++) {
+			Collections.shuffle(keys);
+			testOrderStatisticsOperations(keys);
+		}
+		
+	}
+
+	public void testOrderStatisticsOperations(List<Integer> keys) {
+		givenATree();
+		initializedWith(keys);
+
+		checkRedBlack(tree);
+		
+		assertThat("tree size is same as keys", tree.size(), equalTo(keys.size()));
+
+		Collections.sort(keys);
+		
+		for(int i = 0; i < keys.size(); i++) {
+			assertThat(tree.os_rank(tree.os_select(i+1)), equalTo(i+1));
+		}
+		
+	}
+
+	// These are tests to test the tests that I referred from users.cis.fiu.edu Lol
+	@Test
 	public void checkRedBlackIdentifiesThatRedNodeHasRedParent() {
 		exceptionRule.expect(IllegalStateException.class);
  		exceptionRule.expectMessage("Parent of red 4 is red");
@@ -105,13 +163,23 @@ public class RedBlackTreeTest {
 		Node root = new RedBlackTree.Node(11, NodeColor.BLACK);
 		
 		Node rootLeft = root.addLeftChild(new RedBlackTree.Node(2, NodeColor.RED));
-		rootLeft.addLeftChild(new RedBlackTree.Node(1, NodeColor.BLACK));
+		Node rootLeftLeft = rootLeft.addLeftChild(new RedBlackTree.Node(1, NodeColor.BLACK));
 		Node rootLeftRight = rootLeft.addRightChild(new RedBlackTree.Node(7, NodeColor.BLACK));
 		Node rootLeftRightLeft = rootLeftRight.addLeftChild(new RedBlackTree.Node(5, NodeColor.RED));
-		rootLeftRight.addRightChild(new RedBlackTree.Node(8, NodeColor.RED));
+		Node rootLeftRightRight = rootLeftRight.addRightChild(new RedBlackTree.Node(8, NodeColor.RED));
 		
 		Node rootRight = root.addRightChild(new RedBlackTree.Node(14, NodeColor.BLACK));
-		rootRight.addRightChild(new RedBlackTree.Node(15, NodeColor.RED));
+		Node rootRightRight = rootRight.addRightChild(new RedBlackTree.Node(15, NodeColor.RED));
+		
+		rootLeftRightLeft.size = 1;
+		rootLeftRightRight.size = 1;
+		rootRightRight.size = 1;
+		
+		rootLeftRight.size = rootLeftRight.left.size + rootLeftRight.right.size + 1;
+		rootLeftLeft.size = rootLeftLeft.left.size + rootLeftLeft.right.size + 1;
+		rootRight.size = rootRight.left.size + rootRight.right.size + 1;
+		rootLeft.size = rootLeft.left.size + rootLeft.right.size + 1;
+		root.size = root.left.size + root.right.size + 1;
 		
 		redBlackTree.root = root;
 		root.parent = RedBlackTree.NIL;
@@ -132,13 +200,26 @@ public class RedBlackTreeTest {
 		Node root = new RedBlackTree.Node(11, NodeColor.BLACK);
 		
 		Node rootLeft = root.addLeftChild(new RedBlackTree.Node(2, NodeColor.RED));
-		rootLeft.addLeftChild(new RedBlackTree.Node(1, NodeColor.BLACK));
+		Node rootLeftLeft = rootLeft.addLeftChild(new RedBlackTree.Node(1, NodeColor.BLACK));
 		Node rootLeftRight = rootLeft.addRightChild(new RedBlackTree.Node(7, NodeColor.BLACK));
 		Node rootLeftRightLeft = rootLeftRight.addLeftChild(new RedBlackTree.Node(5, NodeColor.RED));
-		rootLeftRight.addRightChild(new RedBlackTree.Node(8, NodeColor.RED));
+		Node rootLeftRightRight = rootLeftRight.addRightChild(new RedBlackTree.Node(8, NodeColor.RED));
 		
 		Node rootRight = root.addRightChild(new RedBlackTree.Node(14, NodeColor.BLACK));
-		rootRight.addRightChild(new RedBlackTree.Node(15, NodeColor.RED));
+		Node rootRightRight = rootRight.addRightChild(new RedBlackTree.Node(15, NodeColor.RED));
+		
+		
+		//certainly it's a hacky to define sizes like that but unfortunately currently it is least of my concerns
+		rootLeftRightLeft.size = 1;
+		rootLeftRightRight.size = 1;
+		rootRightRight.size = 1;
+		
+		rootLeftLeft.size = rootLeftLeft.left.size + rootLeftLeft.right.size + 1;
+		rootLeftRight.size = rootLeftRight.left.size + rootLeftRight.right.size + 1;
+		rootRight.size = rootRight.left.size + rootRight.right.size + 1;
+		rootLeft.size = rootLeft.left.size + rootLeft.right.size + 1;
+		root.size = root.left.size + root.right.size + 1;
+		
 		
 		redBlackTree.root = root;
 		root.parent = RedBlackTree.NIL;

@@ -19,11 +19,13 @@ public class RedBlackTree {
 	
 	public void insert(int key) {
 		Node node = new Node(key, NodeColor.RED);
+		node.size = 1;
 		Node parent = NIL;
 		Node current = root;
 		
 		while(current != NIL) {
 			parent = current;
+			parent.size++;
 			
 			if(node.key < current.key) {
 				current = current.left;
@@ -116,6 +118,9 @@ public class RedBlackTree {
 		
 		y.right = node;
 		node.parent = y;
+		
+		y.size = node.size;
+		node.size = node.left.size + node.right.size + 1;
 	}
 
 	private void leftRotate(Node node) {
@@ -134,17 +139,23 @@ public class RedBlackTree {
 			node.parent.right = y;
 		y.left = node;
 		node.parent = y;
+		
+		y.size = node.size;
+		node.size = node.left.size + node.right.size + 1;
 	}
 
 	public boolean isEmpty() {
 		return root == NIL;
 	}
 	
+	//with size attribute added for augmented red-black tree, we can simply return root node's size
 	public int size() {
+//		return root.size;
 		return size(root);
 	}
 
 	private int size(Node node) {
+//		return node.size;
 		if (node == NIL)
 			return 0;
 		return 1 + size(node.left) + size(node.right);
@@ -230,6 +241,74 @@ public class RedBlackTree {
         return res;
     }
     
+	public Node os_select(int rank) {
+		return os_select(root, rank);
+	}
+	
+	private Node os_select(Node node, int rank) {
+		if(node.size < rank)
+			return null;
+		
+		int currentRank = node.left.size + 1;
+		
+		if(rank == currentRank)
+			return node;
+		
+		else if(rank < currentRank)
+			return os_select(node.left, rank);
+		else
+			return os_select(node.right, rank - currentRank);
+	}
+	
+	public int os_rank(Node x) {
+		int rank = x.left.size + 1;
+		Node y = x;
+		while(y != root) {
+			if( y == y.parent.right) {
+				rank = rank + y.parent.left.size + 1;
+			}
+			
+			y = y.parent;
+		}
+		
+		return rank;
+	}
+	
+	public int os_key_rank(int key) {
+		return os_key_rank(root, key);
+	}
+	
+	private int os_key_rank(Node node, int key) {
+		if(node == NIL)
+			return -1;
+		
+		if(key == node.key)
+			return node.left.size + 1;
+		
+		if(key < node.key)
+			return os_key_rank(node.left, key);
+		
+		else
+			return node.left.size + 1 + os_key_rank(node.right, key);
+	}
+
+	//helper for test
+	Node searchNode(int key) {
+		Node current = root;
+
+		while (current != null) {
+			if (key == current.key)
+				return current;
+
+			if (key < current.key)
+				current = current.left;
+			else
+				current = current.right;
+		}
+
+		return null;
+	}
+	
     private int getHeight(Node root) {
         if (root == null) {
             return 0;
@@ -248,12 +327,14 @@ public class RedBlackTree {
 		Node right;
 		Node parent;
 		NodeColor color;
+		int size;
 		
 		Node(Integer key, NodeColor color) {
 			this.key = key;
 			this.color = color;
 			this.left = NIL;
 			this.right = NIL;
+			this.size = 0;
 		}
 		
 		Node addLeftChild(Node left) {
@@ -266,6 +347,11 @@ public class RedBlackTree {
 			this.right = right;
 			right.parent = this;
 			return right;
+		}
+		
+		@Override
+		public String toString() {
+			return "key = " + key + ", color = "+ color + ", size = " + size;
 		}
 	}
 }
