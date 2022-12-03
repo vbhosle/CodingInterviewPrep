@@ -1,6 +1,7 @@
 package clrs.dataStructures;
 
 import com.google.common.collect.ImmutableSet;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collection;
@@ -24,6 +25,7 @@ public class DisjointSetWithLinkedListTest {
     private DisjointSetWithLinkedList.SetMember<String> nodeJ;
     private DisjointSetWithLinkedList.SetMember<String> nodeK;
     
+    @Before
     public void setup() {
         nodeA = new DisjointSetWithLinkedList.SetMember<>("a");
         nodeB = new DisjointSetWithLinkedList.SetMember<>("b");
